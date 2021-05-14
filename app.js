@@ -2,6 +2,8 @@
 const express = require('express')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
+const cors = require('cors') 
+
 const connection = require('./database/connection')
 
 // connection
@@ -22,6 +24,9 @@ app.use(morgan('tiny'))
 app.use(express.urlencoded({ extended:true }))
 app.use(express.json())
 
+// cors
+app.use(cors())
+
 // mongo connection
 connection();
 
@@ -29,6 +34,6 @@ connection();
 app.use('/', userRouter)
 
 app.listen(port, (req, res) => {
-    console.info(`Current client URL ::: http://127.0.0.1/${port}`);
+    console.info(`Local client URL ::: http://127.0.0.1/${port}`);
     console.info(`Network URL ::: http://192.168.29.85/${port}`);
 })
